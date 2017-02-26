@@ -1,3 +1,7 @@
+# vim backup files
+*.un~
+*.swp
+
 # Logs
 logs
 *.log
