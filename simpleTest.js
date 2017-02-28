@@ -406,6 +406,18 @@
     Tombol.prototype = new ObjectProp();
 
     var gambar = [];
+    gambar.push(new Tombol(150, 24, "panah", "static", {
+      label: "Perubahan energi apakah yang terjadi dibawah ini?",
+      width: 300, height: 50,
+      overrideRender: function (_ctx) {
+        _ctx.font = 20 + "px sans-serif";
+        _ctx.fillStyle = "blue";
+        _ctx.textAlign = "center";
+        _ctx.textBaseline = "middle";
+        _ctx.fillText(this.label, this.width/2, this.height/2);
+      },
+      renderParams: [ctx]
+    }));
     gambar.push(new Tombol(250, 115, "panah", "static"));
     gambar.push(new Tombol(300, 100, "bingkai-jawaban", "static holder", {
       occupied: false
@@ -424,7 +436,8 @@
     gambar.push(new Tombol(100, 250, "jam-dinding", "static", {
       width: 450 * xScale, height: 350 * yScale,
       overrideRender: function (_ctx) {
-        _ctx.drawImage(this.img, 0, 0, this.width, this.height);
+        _ctx.drawImage(this.img, this.width/15, this.height/10,
+          this.width - this.width/20, this.height - this.height/10);
       },
       renderParams: [ctx]
     }));
@@ -432,7 +445,7 @@
       .forEach(function (imgid) {
         gambar.push(new Tombol(100, 250, imgid, "static", {
           width: 500 * xScale,
-          height: (imgid === "bingkai-tv" ? 420 : 400) *yScale,
+          height: (imgid === "bingkai-tv" ? 425 : 400) *yScale,
           overrideRender: function (_ctx) {
             _ctx.drawImage(this.img, 0, 0, this.width, this.height);
           },
@@ -444,7 +457,17 @@
       j++, i += (100*yScale))
       gambar.push(new Tombol((canvasWidth- 200) * xScale, i,
         "tombol-pendek2", "dynamic", {
-        draggable: true, hitx: 0, hity: 0, label: labels[j] }));
+          draggable: true, hitx: 0, hity: 0, label: labels[j],
+          overrideRender: function (_ctx) {
+            _ctx.drawImage(this.img, 0, 0, this.width, this.height);
+            _ctx.font = this.height/2 + "px sans-serif";
+            _ctx.fillStyle = "red";
+            _ctx.textAlign = "center";
+            _ctx.textBaseline = "middle";
+            _ctx.fillText(this.label, this.width/2, this.height/2);
+          },
+          renderParams: [ctx]
+        }));
 
 
     //------------------------    
